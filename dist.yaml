@@ -12,6 +12,8 @@ info:
 servers:
   - url: https://api.bonbon.tech/v1
     description: Production API v1 endpoint
+  - url: https://sandbox.api.bonbon.tech/v1
+    description: Sandbox API v1 endpoint
 paths:
   /earn/otp:
     post:
