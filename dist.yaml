@@ -1,0 +1,109 @@
+openapi: 3.1.0
+info:
+  title: Bonbon Rewards API
+  description: >-
+    The Bonbon Rewards API allows you to create more rewarding experiences for
+    users on the Open Internet.
+  version: 1.0.0
+  x-logo:
+    url: https://portal.bonbon.tech/bonbon_logo.png
+    backgroundColor: '#FFFFFF'
+    altText: Bonbon logo
+servers:
+  - url: https://api.bonbon.tech/v1
+    description: Production API v1 endpoint
+paths:
+  /earn/otp:
+    post:
+      summary: /earn/otp
+      description: >-
+        Initiate a request for an earn token using the email OTP code flow.
+        Dispatches an email with an OTP code the end user will later enter into
+        your form to complete authentication & generate an earn token.
+      responses:
+        '200':
+          description: A JSON object with a success message
+          content:
+            application/json:
+              schema:
+                type: object
+                message:
+                  type: string
+        '500':
+          description: A JSON object with an error message.
+          content:
+            application/json:
+              schema:
+                type: object
+                message:
+                  type: string
+  /earn/token:
+    post:
+      summary: /earn/token
+      description: >-
+        Exchange an email address / OTP code pair for an earn token. To be
+        called after a successful call to `/v1/auth`, this method will return an
+        earn token if the email and OTP code provided match expectations.
+      responses:
+        '200':
+          description: A JSON object with the earn token
+          content:
+            application/json:
+              schema:
+                type: object
+                earn_token:
+                  type: string
+        '500':
+          description: A JSON object with an error message.
+          content:
+            application/json:
+              schema:
+                type: object
+                message:
+                  type: string
+  /earn/oidc:
+    post:
+      summary: /earn/oidc
+      description: >-
+        Exchange an OIDC ID Token for an earn token. Used to perform an
+        immediate exchange of an OIDC ID Token for an earn token. Ensure your
+        JWKS is configured for your client ID to use this method.
+      responses:
+        '200':
+          description: A JSON object with the earn token
+          content:
+            application/json:
+              schema:
+                type: object
+                earn_token:
+                  type: string
+        '500':
+          description: A JSON object with an error message.
+          content:
+            application/json:
+              schema:
+                type: object
+                message:
+                  type: string
+  /earn:
+    post:
+      summary: /earn
+      description: >-
+        Called to log an earn action and credit the user associated with the
+        earn token. Credits a user for a site activity.
+      responses:
+        '200':
+          description: An empty string response
+          content:
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: A JSON object with an rate limit error message.
+          content:
+            application/json:
+              schema:
+                type: object
+                message:
+                  type: string
+components: {}
