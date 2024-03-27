@@ -3,18 +3,66 @@ post:
   description: >-
     Called to log an earn action and credit the user associated with the earn
     token. Credits a user for a site activity.
+  requestBody:
+    description: The payload for an earn action
+    required: true
+    content:
+      'application/json':
+        schema:
+          type: object
+          properties:
+            earnToken:
+              description: The user's earn token
+              type: string
+            clientId:
+              description: The clientId of the application sending the earn token
+              type: string
+        examples:
+          TestEarn:
+            summary: An example earn payload
+            value:
+              earnToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9 
+              clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
   responses:
     '200':
       description: An empty string response
       content:
         application/json:
           schema:
-            type: string
+            type: object
+            properties:
+              message:
+                type: string
+          examples:
+              Success:
+                summary: A successful earn response
+                value:
+                  message: "ok"
     '429':
       description: A JSON object with an rate limit error message.
       content:
         application/json:
           schema:
             type: object
-            message:
-              type: string
+            properties:
+              message:
+                type: string
+          examples:
+            Success:
+              summary: A error earn response
+              value:
+                message: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9 over rate limit for ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda"
+    '500':
+      description: A JSON object with an error message.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          examples:
+            Success:
+              summary: A error earn response
+              value:
+                message: "There was an error logging the earn activity. Please try again."

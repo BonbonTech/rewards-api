@@ -1,0 +1,8 @@
+type: object
+properties:
+  email:
+    description: The user's email address
+    type: string
+  clientId:
+    description: The site's client ID
+    type: string

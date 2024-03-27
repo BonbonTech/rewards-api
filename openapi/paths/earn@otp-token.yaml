@@ -1,12 +1,11 @@
 post:
-  summary: /earn/otp
+  summary: /earn/otp-token
   description: >-
-    Initiate a request for an earn token using the email OTP code flow.
-    Dispatches an email with an OTP code the end user will later enter into your
-    form to complete authentication & generate an earn token. The email will be branded
-    per the clientId provided.
+    Exchange an email address / OTP code pair for an earn token. To be called
+    after a successful call to `/earn/otp`, this method will return an earn token
+    if the email and OTP code provided match expectations.
   requestBody:
-    description: The payload to begin an OTP code authentication.
+    description: The payload to exchange an email / OTP code pair for an earn token
     required: true
     content:
       'application/json':
@@ -16,31 +15,30 @@ post:
             email:
               description: The user's email address
               type: string
-            clientId:
-              description: The site's client ID
+            otp:
+              description: The OTP code for the given email address
               type: string
         examples:
           TestUser:
-            summary: An OTP Example
+            summary: An otp-token example
             value:
               email: test-user@bonbon.tech
-              clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+              otp: "123456"
   responses:
     '200':
-      description: A JSON object with a success message
+      description: A JSON object with the earn token
       content:
         application/json:
           schema:
             type: object
             properties:
-              message:
+              earnToken: 
                 type: string
           examples:
               Success:
-                summary: A successful response
+                summary: A successful otp-token response
                 value:
-                  message: Email sent to test-user@bonbon.tech
-
+                  earnToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
     '500':
       description: A JSON object with an error message.
       content:
@@ -52,6 +50,6 @@ post:
                 type: string
           examples:
               Success:
-                summary: An error response
+                summary: An error message
                 value:
-                  message: bad-user@bonbon.tech is not a valid mailbox. Please try again with a valid email address.
+                  message: Invalid email/otp combination. Please try again.
