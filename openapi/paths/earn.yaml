@@ -1,0 +1,20 @@
+post:
+  summary: /earn
+  description: >-
+    Called to log an earn action and credit the user associated with the earn
+    token. Credits a user for a site activity.
+  responses:
+    '200':
+      description: An empty string response
+      content:
+        application/json:
+          schema:
+            type: string
+    '429':
+      description: A JSON object with an rate limit error message.
+      content:
+        application/json:
+          schema:
+            type: object
+            message:
+              type: string

@@ -1,0 +1,23 @@
+openapi: 3.1.0
+info:
+  title: Bonbon Rewards API
+  description: >-
+    The Bonbon Rewards API allows you to create more rewarding experiences for
+    users on the Open Internet.
+  version: 1.0.0
+  x-logo:
+    url: 'https://portal.bonbon.tech/bonbon_logo.png'
+    backgroundColor: '#FFFFFF'
+    altText: Bonbon logo
+servers:
+  - url: 'https://api.bonbon.tech/v1'
+    description: Production API v1 endpoint
+paths:
+  /earn/otp:
+    $ref: paths/earn@otp.yaml
+  /earn/token:
+    $ref: paths/earn@token.yaml
+  /earn/oidc:
+    $ref: paths/earn@oidc.yaml
+  /earn:
+    $ref: paths/earn.yaml

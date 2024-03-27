@@ -1,0 +1,23 @@
+post:
+  summary: /earn/token
+  description: >-
+    Exchange an email address / OTP code pair for an earn token. To be called
+    after a successful call to `/v1/auth`, this method will return an earn token
+    if the email and OTP code provided match expectations.
+  responses:
+    '200':
+      description: A JSON object with the earn token
+      content:
+        application/json:
+          schema:
+            type: object
+            earn_token:
+              type: string
+    '500':
+      description: A JSON object with an error message.
+      content:
+        application/json:
+          schema:
+            type: object
+            message:
+              type: string

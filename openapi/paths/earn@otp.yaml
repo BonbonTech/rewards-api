@@ -1,0 +1,23 @@
+post:
+  summary: /earn/otp
+  description: >-
+    Initiate a request for an earn token using the email OTP code flow.
+    Dispatches an email with an OTP code the end user will later enter into your
+    form to complete authentication & generate an earn token.
+  responses:
+    '200':
+      description: A JSON object with a success message
+      content:
+        application/json:
+          schema:
+            type: object
+            message:
+              type: string
+    '500':
+      description: A JSON object with an error message.
+      content:
+        application/json:
+          schema:
+            type: object
+            message:
+              type: string
