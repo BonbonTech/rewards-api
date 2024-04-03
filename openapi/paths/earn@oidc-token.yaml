@@ -18,12 +18,12 @@ post:
             clientId:
               description: The clientId of the application sending the OIDC token
               type: string
-          examples:
-            TestIDToken:
-              summary: An oidc-token example
-              value:
-                idToken: eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
-                clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+        examples:
+          TestIDToken:
+            summary: An oidc-token example
+            value:
+              idToken: eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
+              clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
   responses:
     '200':
       description: A JSON object with the earn token

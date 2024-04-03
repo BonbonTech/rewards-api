@@ -1,9 +1,7 @@
 openapi: 3.1.0
 info:
   title: Bonbon Rewards API
-  description: >-
-    The Bonbon Rewards API allows you to create rewarded experiences for users
-    on the Open Internet.
+  description: The Bonbon Rewards API allows you to create rewarded experiences for users on the Open Internet.
   version: 1.0.0
   x-logo:
     url: https://portal.bonbon.tech/bonbon_logo.png
@@ -18,11 +16,7 @@ paths:
   /earn/otp:
     post:
       summary: /earn/otp
-      description: >-
-        Initiate a request for an earn token using the email OTP code flow.
-        Dispatches an email with an OTP code the end user will later enter into
-        your form to complete authentication & generate an earn token. The email
-        will be branded per the clientId provided.
+      description: Initiate a request for an earn token using the email OTP code flow. Dispatches an email with an OTP code the end user will later enter into your form to complete authentication & generate an earn token. The email will be branded per the clientId provided.
       requestBody:
         description: The payload to begin an OTP code authentication.
         required: true
@@ -71,16 +65,11 @@ paths:
                 Success:
                   summary: An error response
                   value:
-                    message: >-
-                      bad-user@bonbon.tech is not a valid mailbox. Please try
-                      again with a valid email address.
+                    message: bad-user@bonbon.tech is not a valid mailbox. Please try again with a valid email address.
   /earn/token:
     post:
       summary: /earn/otp-token
-      description: >-
-        Exchange an email address / OTP code pair for an earn token. To be
-        called after a successful call to `/earn/otp`, this method will return
-        an earn token if the email and OTP code provided match expectations.
+      description: Exchange an email address / OTP code pair for an earn token. To be called after a successful call to `/earn/otp`, this method will return an earn token if the email and OTP code provided match expectations.
       requestBody:
         description: The payload to exchange an email / OTP code pair for an earn token
         required: true
@@ -133,10 +122,7 @@ paths:
   /earn/oidc:
     post:
       summary: /earn/oidc-token
-      description: >-
-        Exchange an OIDC ID Token for an earn token. Used to perform an
-        immediate exchange of an OIDC ID Token for an earn token. Ensure your
-        JWKS is configured for your client ID to use this method.
+      description: Exchange an OIDC ID Token for an earn token. Used to perform an immediate exchange of an OIDC ID Token for an earn token. Ensure your JWKS is configured for your client ID to use this method.
       requestBody:
         description: The payload to exchange an OIDC token for an earn token
         required: true
@@ -151,13 +137,12 @@ paths:
                 clientId:
                   description: The clientId of the application sending the OIDC token
                   type: string
-              examples:
-                TestIDToken:
-                  summary: An oidc-token example
-                  value:
-                    idToken: >-
-                      eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
-                    clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+            examples:
+              TestIDToken:
+                summary: An oidc-token example
+                value:
+                  idToken: eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
+                  clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
       responses:
         '200':
           description: A JSON object with the earn token
@@ -191,9 +176,7 @@ paths:
   /earn:
     post:
       summary: /earn
-      description: >-
-        Called to log an earn action and credit the user associated with the
-        earn token. Credits a user for a site activity.
+      description: Called to log an earn action and credit the user associated with the earn token. Credits a user for a site activity.
       requestBody:
         description: The payload for an earn action
         required: true
@@ -242,9 +225,7 @@ paths:
                 Success:
                   summary: A error earn response
                   value:
-                    message: >-
-                      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9 over rate limit for
-                      ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+                    message: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9 over rate limit for ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
         '500':
           description: A JSON object with an error message.
           content:
@@ -258,7 +239,5 @@ paths:
                 Success:
                   summary: A error earn response
                   value:
-                    message: >-
-                      There was an error logging the earn activity. Please try
-                      again.
+                    message: There was an error logging the earn activity. Please try again.
 components: {}
