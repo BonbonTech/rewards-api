@@ -5,6 +5,16 @@ post:
     Dispatches an email with an OTP code the end user will later enter into your
     form to complete authentication & generate an earn token. The email will be branded
     per the clientId provided.
+  parameters:
+    - in: header
+      name: x-bonbon-clientid
+      schema:
+        type: string
+      examples:
+        TestClientId:
+          summary: The Client ID
+          value:
+            ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
   requestBody:
     description: The payload to begin an OTP code authentication.
     required: true
@@ -16,15 +26,12 @@ post:
             email:
               description: The user's email address
               type: string
-            clientId:
-              description: The site's client ID
-              type: string
         examples:
           TestUser:
             summary: An OTP Example
             value:
               email: test-user@bonbon.tech
-              clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+
   responses:
     '200':
       description: A JSON object with a success message

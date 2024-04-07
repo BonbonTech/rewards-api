@@ -4,6 +4,16 @@ post:
     Exchange an OIDC ID Token for an earn token. Used to perform an immediate
     exchange of an OIDC ID Token for an earn token. Ensure your JWKS is
     configured for your client ID to use this method.
+  parameters:
+    - in: header
+      name: x-bonbon-clientid
+      schema:
+        type: string
+      examples:
+        TestClientId:
+          summary: The Client ID
+          value:
+            ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
   requestBody:
     description: The payload to exchange an OIDC token for an earn token
     required: true
@@ -15,15 +25,11 @@ post:
             idToken:
               description: The user's OIDC token
               type: string
-            clientId:
-              description: The clientId of the application sending the OIDC token
-              type: string
         examples:
           TestIDToken:
             summary: An oidc-token example
             value:
               idToken: eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
-              clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
   responses:
     '200':
       description: A JSON object with the earn token

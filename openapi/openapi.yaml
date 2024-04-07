@@ -23,3 +23,5 @@ paths:
     $ref: paths/earn@oidc-token.yaml
   /earn:
     $ref: paths/earn.yaml
+  /user:
+    $ref: paths/user.yaml

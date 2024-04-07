@@ -1,7 +1,9 @@
 openapi: 3.1.0
 info:
   title: Bonbon Rewards API
-  description: The Bonbon Rewards API allows you to create rewarded experiences for users on the Open Internet.
+  description: >-
+    The Bonbon Rewards API allows you to create rewarded experiences for users
+    on the Open Internet.
   version: 1.0.0
   x-logo:
     url: https://portal.bonbon.tech/bonbon_logo.png
@@ -16,7 +18,20 @@ paths:
   /earn/otp:
     post:
       summary: /earn/otp
-      description: Initiate a request for an earn token using the email OTP code flow. Dispatches an email with an OTP code the end user will later enter into your form to complete authentication & generate an earn token. The email will be branded per the clientId provided.
+      description: >-
+        Initiate a request for an earn token using the email OTP code flow.
+        Dispatches an email with an OTP code the end user will later enter into
+        your form to complete authentication & generate an earn token. The email
+        will be branded per the clientId provided.
+      parameters:
+        - in: header
+          name: x-bonbon-clientid
+          schema:
+            type: string
+          examples:
+            TestClientId:
+              summary: The Client ID
+              value: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
       requestBody:
         description: The payload to begin an OTP code authentication.
         required: true
@@ -28,15 +43,11 @@ paths:
                 email:
                   description: The user's email address
                   type: string
-                clientId:
-                  description: The site's client ID
-                  type: string
             examples:
               TestUser:
                 summary: An OTP Example
                 value:
                   email: test-user@bonbon.tech
-                  clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
       responses:
         '200':
           description: A JSON object with a success message
@@ -65,11 +76,25 @@ paths:
                 Success:
                   summary: An error response
                   value:
-                    message: bad-user@bonbon.tech is not a valid mailbox. Please try again with a valid email address.
+                    message: >-
+                      bad-user@bonbon.tech is not a valid mailbox. Please try
+                      again with a valid email address.
   /earn/token:
     post:
       summary: /earn/otp-token
-      description: Exchange an email address / OTP code pair for an earn token. To be called after a successful call to `/earn/otp`, this method will return an earn token if the email and OTP code provided match expectations.
+      description: >-
+        Exchange an email address / OTP code pair for an earn token. To be
+        called after a successful call to `/earn/otp`, this method will return
+        an earn token if the email and OTP code provided match expectations.
+      parameters:
+        - in: header
+          name: x-bonbon-clientid
+          schema:
+            type: string
+          examples:
+            TestClientId:
+              summary: The Client ID
+              value: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
       requestBody:
         description: The payload to exchange an email / OTP code pair for an earn token
         required: true
@@ -122,7 +147,19 @@ paths:
   /earn/oidc:
     post:
       summary: /earn/oidc-token
-      description: Exchange an OIDC ID Token for an earn token. Used to perform an immediate exchange of an OIDC ID Token for an earn token. Ensure your JWKS is configured for your client ID to use this method.
+      description: >-
+        Exchange an OIDC ID Token for an earn token. Used to perform an
+        immediate exchange of an OIDC ID Token for an earn token. Ensure your
+        JWKS is configured for your client ID to use this method.
+      parameters:
+        - in: header
+          name: x-bonbon-clientid
+          schema:
+            type: string
+          examples:
+            TestClientId:
+              summary: The Client ID
+              value: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
       requestBody:
         description: The payload to exchange an OIDC token for an earn token
         required: true
@@ -134,15 +171,12 @@ paths:
                 idToken:
                   description: The user's OIDC token
                   type: string
-                clientId:
-                  description: The clientId of the application sending the OIDC token
-                  type: string
             examples:
               TestIDToken:
                 summary: An oidc-token example
                 value:
-                  idToken: eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
-                  clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+                  idToken: >-
+                    eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
       responses:
         '200':
           description: A JSON object with the earn token
@@ -176,27 +210,28 @@ paths:
   /earn:
     post:
       summary: /earn
-      description: Called to log an earn action and credit the user associated with the earn token. Credits a user for a site activity.
-      requestBody:
-        description: The payload for an earn action
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                earnToken:
-                  description: The user's earn token
-                  type: string
-                clientId:
-                  description: The clientId of the application sending the earn token
-                  type: string
-            examples:
-              TestEarn:
-                summary: An example earn payload
-                value:
-                  earnToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
-                  clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+      description: >-
+        Called to log an earn action and credit the user associated with the
+        earn token. Credits a user for a site activity.
+      parameters:
+        - in: header
+          name: x-bonbon-clientid
+          schema:
+            type: string
+          examples:
+            TestClientId:
+              summary: The Client ID
+              value: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          examples:
+            TestClientId:
+              summary: The earn bearer token
+              value: >-
+                Bearer
+                eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
       responses:
         '200':
           description: An empty string response
@@ -225,7 +260,7 @@ paths:
                 Success:
                   summary: A error earn response
                   value:
-                    message: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9 over rate limit for ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+                    message: User over rate limit for ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
         '500':
           description: A JSON object with an error message.
           content:
@@ -239,5 +274,86 @@ paths:
                 Success:
                   summary: A error earn response
                   value:
-                    message: There was an error logging the earn activity. Please try again.
+                    message: >-
+                      There was an error logging the earn activity. Please try
+                      again.
+  /user:
+    get:
+      summary: /user
+      description: >-
+        Called to fetch how many bonbons the user has accumulated and the latest
+        reward they've expressed interest in winning.
+      parameters:
+        - in: header
+          name: x-bonbon-clientid
+          schema:
+            type: string
+          examples:
+            TestClientId:
+              summary: The Client ID
+              value: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          examples:
+            TestClientId:
+              summary: The earn bearer token
+              value: >-
+                Bearer
+                eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
+      responses:
+        '200':
+          description: An empty string response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bonbons:
+                    summary: >-
+                      The number of Bonbons (entries to win) the user has
+                      accumulated
+                    type: integer
+                  reward:
+                    summary: >-
+                      The ID of the latest reward the user has expressed
+                      interest in winning.
+                    type: string
+              examples:
+                Success:
+                  summary: A successful earn response
+                  value:
+                    bonbons: 100
+                    reward: airpods_v1
+        '429':
+          description: A JSON object with an rate limit error message.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Success:
+                  summary: A error earn response
+                  value:
+                    message: User over rate limit for ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+        '500':
+          description: A JSON object with an error message.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Success:
+                  summary: A error earn response
+                  value:
+                    message: >-
+                      There was an error logging the earn activity. Please try
+                      again.
 components: {}

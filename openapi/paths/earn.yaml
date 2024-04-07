@@ -3,26 +3,26 @@ post:
   description: >-
     Called to log an earn action and credit the user associated with the earn
     token. Credits a user for a site activity.
-  requestBody:
-    description: The payload for an earn action
-    required: true
-    content:
-      'application/json':
-        schema:
-          type: object
-          properties:
-            earnToken:
-              description: The user's earn token
-              type: string
-            clientId:
-              description: The clientId of the application sending the earn token
-              type: string
-        examples:
-          TestEarn:
-            summary: An example earn payload
-            value:
-              earnToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9 
-              clientId: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+  parameters:
+    - in: header
+      name: x-bonbon-clientid
+      schema:
+        type: string
+      examples:
+        TestClientId:
+          summary: The Client ID
+          value:
+            ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+    - in: header
+      name: Authorization
+      schema:
+        type: string
+      examples:
+        TestClientId:
+          summary: The earn bearer token
+          value:
+            Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
+
   responses:
     '200':
       description: An empty string response
@@ -51,7 +51,7 @@ post:
             Success:
               summary: A error earn response
               value:
-                message: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9 over rate limit for ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda"
+                message: "User over rate limit for ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda"
     '500':
       description: A JSON object with an error message.
       content:

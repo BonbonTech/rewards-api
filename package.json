@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "openapi preview-docs",
-    "build": "openapi bundle -o dist && npx redocly build-docs ./dist.yaml --output=index.html",
+    "build": "openapi bundle -o dist && npx @redocly/cli build-docs ./dist.yaml --output=index.html",
     "test": "openapi lint"
   }
 }

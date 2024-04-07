@@ -4,6 +4,16 @@ post:
     Exchange an email address / OTP code pair for an earn token. To be called
     after a successful call to `/earn/otp`, this method will return an earn token
     if the email and OTP code provided match expectations.
+  parameters:
+    - in: header
+      name: x-bonbon-clientid
+      schema:
+        type: string
+      examples:
+        TestClientId:
+          summary: The Client ID
+          value:
+            ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
   requestBody:
     description: The payload to exchange an email / OTP code pair for an earn token
     required: true
