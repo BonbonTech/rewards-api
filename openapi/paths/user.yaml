@@ -1,0 +1,72 @@
+get:
+  summary: /user
+  description: >-
+    Called to fetch how many bonbons the user has accumulated and the latest reward they've expressed interest in winning.
+  parameters:
+    - in: header
+      name: x-bonbon-clientid
+      schema:
+        type: string
+      examples:
+        TestClientId:
+          summary: The Client ID
+          value:
+            ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+    - in: header
+      name: Authorization
+      schema:
+        type: string
+      examples:
+        TestClientId:
+          summary: The earn bearer token
+          value:
+            Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
+
+  responses:
+    '200':
+      description: An empty string response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              bonbons:
+                summary: "The number of Bonbons (entries to win) the user has accumulated"
+                type: integer
+              reward:
+                summary: "The ID of the latest reward the user has expressed interest in winning."
+                type: string
+          examples:
+              Success:
+                summary: A successful earn response
+                value:
+                  bonbons: 100
+                  reward: "airpods_v1"
+    '429':
+      description: A JSON object with an rate limit error message.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          examples:
+            Success:
+              summary: A error earn response
+              value:
+                message: "User over rate limit for ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda"
+    '500':
+      description: A JSON object with an error message.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+          examples:
+            Success:
+              summary: A error earn response
+              value:
+                message: "There was an error logging the earn activity. Please try again."
