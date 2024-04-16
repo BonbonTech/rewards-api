@@ -79,7 +79,7 @@ paths:
                     message: >-
                       bad-user@bonbon.tech is not a valid mailbox. Please try
                       again with a valid email address.
-  /earn/token:
+  /earn/otp-token:
     post:
       summary: /earn/otp-token
       description: >-
@@ -109,12 +109,34 @@ paths:
                 otp:
                   description: The OTP code for the given email address
                   type: string
+                reward:
+                  description: The ID of the reward from
+                  type: string
+                preferences:
+                  description: >-
+                    An object set of key/value pairs representing the user's
+                    preferences must at least include the keys pAds and
+                    newsletter with boolean values representing the user's
+                    personalized ads and newsletter preferences, respectively.
+                  type: object
+                lastLoginUrl:
+                  description: The URL where the user is logging in from
+                  type: string
+                bonbons:
+                  description: The number of Bonbons to reward the user for logging in
+                  type: integer
             examples:
               TestUser:
                 summary: An otp-token example
                 value:
                   email: test-user@bonbon.tech
                   otp: '123456'
+                  reward: airpods_v1
+                  preferences:
+                    pAds: true
+                    newsletter: true
+                  lastLoginUrl: https://bonbon.tech
+                  bonbons: 10
       responses:
         '200':
           description: A JSON object with the earn token
@@ -125,11 +147,14 @@ paths:
                 properties:
                   earnToken:
                     type: string
+                  signUp:
+                    type: boolean
               examples:
                 Success:
                   summary: A successful otp-token response
                   value:
                     earnToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+                    signUp: true
         '500':
           description: A JSON object with an error message.
           content:
@@ -144,7 +169,7 @@ paths:
                   summary: An error message
                   value:
                     message: Invalid email/otp combination. Please try again.
-  /earn/oidc:
+  /earn/oidc-token:
     post:
       summary: /earn/oidc-token
       description: >-
@@ -168,15 +193,37 @@ paths:
             schema:
               type: object
               properties:
-                idToken:
-                  description: The user's OIDC token
+                token:
+                  description: The user's OIDC ID token.
                   type: string
+                provider:
+                  description: One of googlegsi, openpass, bonbonsso.
+                  type: string
+                reward:
+                  description: The ID of a reward from our reward catalog.
+                  type: string
+                preferences:
+                  description: An flat object of key/value pairs of preferences.
+                  type: string
+                lastLoginUrl:
+                  description: The URL where the user is signing in.
+                  type: string
+                bonbons:
+                  description: The number of Bonbons to reward the user for signing in.
+                  type: integer
             examples:
-              TestIDToken:
+              TestToken:
                 summary: An oidc-token example
                 value:
-                  idToken: >-
+                  token: >-
                     eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
+                  provider: bonbonsso
+                  reward: airpods_v1
+                  preferences:
+                    pAds: true
+                    newsletter: true
+                  lastLoginUrl: https://bonbon.tech
+                  bonbons: 10
       responses:
         '200':
           description: A JSON object with the earn token
@@ -193,6 +240,7 @@ paths:
                   summary: A successful otp-token response
                   value:
                     earnToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+                    signUp: true
         '500':
           description: A JSON object with an error message.
           content:
@@ -324,8 +372,23 @@ paths:
                 Success:
                   summary: A successful earn response
                   value:
-                    bonbons: 100
-                    reward: airpods_v1
+                    auth:
+                      hem: XZDvQK/efPV1ssioCcAL3IjwJJYTsJFfeYbPKej9X2o=
+                      uid2:
+                        advertising_token: xxx
+                        identity_expires: 1713474456684
+                        refresh_expires: 1715807256684
+                        refresh_from: 1713218856684
+                        refresh_response_key: yyy
+                        refresh_token: zzz
+                    user_id: email|64641ae9fcc2eef15f95a412
+                    user_metadata:
+                      bonbons: 114
+                      reward: airpods_v1
+                      first_name: true
+                      last_name: true
+                      gender: false
+                      postal: true
         '429':
           description: A JSON object with an rate limit error message.
           content:

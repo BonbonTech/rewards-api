@@ -40,8 +40,28 @@ get:
               Success:
                 summary: A successful earn response
                 value:
-                  bonbons: 100
-                  reward: "airpods_v1"
+                  auth: {
+                    hem: "XZDvQK/efPV1ssioCcAL3IjwJJYTsJFfeYbPKej9X2o=", 
+                    uid2: {
+                      advertising_token: "xxx",
+                      identity_expires: 1713474456684,
+                      refresh_expires: 1715807256684,
+                      refresh_from: 1713218856684,
+                      refresh_response_key: "yyy",
+                      refresh_token: "zzz"
+                    }
+                  }
+                  user_id: email|64641ae9fcc2eef15f95a412
+                  user_metadata: {
+                    bonbons: 114,
+                    reward: "airpods_v1",
+                    first_name: true,
+                    last_name: true,
+                    gender: false,
+                    postal: true
+                  }
+                  
+
     '429':
       description: A JSON object with an rate limit error message.
       content:

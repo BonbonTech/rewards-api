@@ -1,5 +1,5 @@
 post:
-  summary: /earn/otp-token
+  summary: "/earn/otp-token"
   description: >-
     Exchange an email address / OTP code pair for an earn token. To be called
     after a successful call to `/earn/otp`, this method will return an earn token
@@ -28,12 +28,28 @@ post:
             otp:
               description: The OTP code for the given email address
               type: string
+            reward:
+              description: The ID of the reward from 
+              type: string
+            preferences:
+              description: An object set of key/value pairs representing the user's preferences must at least include the keys pAds and newsletter with boolean values representing the user's personalized ads and newsletter preferences, respectively.
+              type: object
+            lastLoginUrl:
+              description: The URL where the user is logging in from
+              type: string
+            bonbons:
+              description: The number of Bonbons to reward the user for logging in
+              type: integer
         examples:
           TestUser:
             summary: An otp-token example
             value:
               email: test-user@bonbon.tech
               otp: "123456"
+              reward: airpods_v1
+              preferences: {pAds: true, newsletter: true}
+              lastLoginUrl: https://bonbon.tech
+              bonbons: 10
   responses:
     '200':
       description: A JSON object with the earn token
@@ -42,13 +58,16 @@ post:
           schema:
             type: object
             properties:
-              earnToken: 
+              earnToken:
                 type: string
+              signUp:
+                type: boolean
           examples:
               Success:
                 summary: A successful otp-token response
                 value:
                   earnToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+                  signUp: true
     '500':
       description: A JSON object with an error message.
       content:

@@ -1,5 +1,5 @@
 post:
-  summary: /earn/oidc-token
+  summary: "/earn/oidc-token"
   description: >-
     Exchange an OIDC ID Token for an earn token. Used to perform an immediate
     exchange of an OIDC ID Token for an earn token. Ensure your JWKS is
@@ -22,14 +22,34 @@ post:
         schema:
           type: object
           properties:
-            idToken:
-              description: The user's OIDC token
+            token:
+              description: The user's OIDC ID token.
               type: string
+            provider:
+              description: One of googlegsi, openpass, bonbonsso.
+              type: string
+            reward:
+              description: The ID of a reward from our reward catalog.
+              type: string
+            preferences:
+              description: An flat object of key/value pairs of preferences.
+              type: string
+            lastLoginUrl:
+              description: The URL where the user is signing in.
+              type: string
+            bonbons:
+              description: The number of Bonbons to reward the user for signing in.
+              type: integer
         examples:
-          TestIDToken:
+          TestToken:
             summary: An oidc-token example
             value:
-              idToken: eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
+              token: eyJhbGciOiJSUzI1NiIsImtpZCI6Imkwd25uIn0.eyJzdWIiOiJqb2UiLCJhdWQiOiJpbV9vaWNfY2xpZW50IiwianRpIjoidWY5MFNLNHdzY0ZoY3RVVDZEdHZiMiIsImlzcyI6Imh0dHBzOlwvXC9sb2NhbGhvc3Q6OTAzMSIsImlhdCI6MTM5NDA2MDg1MywiZXhwIjoxMzk0MDYxMTUzLCJub25jZSI6ImU5NTdmZmJhLTlhNzgtNGVhOS04ZWNhLWFlOGM0ZWY5Yzg1NiIsImF0X2hhc2giOiJ3Zmd2bUU5VnhqQXVkc2w5bGM2VHFBIn0
+              provider: bonbonsso
+              reward: airpods_v1
+              preferences: {pAds: true, newsletter: true}
+              lastLoginUrl: https://bonbon.tech
+              bonbons: 10
   responses:
     '200':
       description: A JSON object with the earn token
@@ -46,6 +66,7 @@ post:
               summary: A successful otp-token response
               value:
                 earnToken: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9"
+                signUp: true
     '500':
       description: A JSON object with an error message.
       content:

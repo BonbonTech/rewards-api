@@ -17,9 +17,9 @@ servers:
 paths:
   /earn/otp:
     $ref: paths/earn@otp.yaml
-  /earn/token:
+  /earn/otp-token:
     $ref: paths/earn@otp-token.yaml
-  /earn/oidc:
+  /earn/oidc-token:
     $ref: paths/earn@oidc-token.yaml
   /earn:
     $ref: paths/earn.yaml
