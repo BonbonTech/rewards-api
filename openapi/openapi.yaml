@@ -3,7 +3,7 @@ info:
   title: Bonbon Rewards API
   description: >-
     The Bonbon Rewards API allows you to create rewarded experiences for
-    users on the Open Internet.
+    users on the Open Internet. Our offer database is made publicly avaialable here (refreshed nightly): https://cdn.bonbon.tech/offers
   version: 1.0.0
   x-logo:
     url: 'https://portal.bonbon.tech/bonbon_logo.png'
