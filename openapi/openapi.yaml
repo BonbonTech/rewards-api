@@ -25,3 +25,5 @@ paths:
     $ref: paths/earn.yaml
   /user:
     $ref: paths/user.yaml
+  /jwt:
+    $ref: paths/jwt.yaml

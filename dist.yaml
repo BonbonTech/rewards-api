@@ -420,4 +420,74 @@ paths:
                     message: >-
                       There was an error logging the earn activity. Please try
                       again.
+  /jwt:
+    post:
+      summary: /jwt
+      description: Generates a signed and encrypted JWT Bonbon ID Token for your user.
+      parameters:
+        - in: header
+          name: x-bonbon-clientid
+          schema:
+            type: string
+          examples:
+            TestClientId:
+              summary: The Client ID
+              value: ZcE2tPCuUMvRAkFiDkHyKQ1k4zR3kmda
+        - in: header
+          name: x-bonbon-api-key
+          schema:
+            type: string
+          examples:
+            TestClientId:
+              summary: Your Bonbon API Client Secret
+              value: ff63ea8a09b4b8c2c0902e6469a36fc2f381558af40ece270a5681bfbca777a2
+      requestBody:
+        description: The payload to begin an OTP code authentication.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  description: The user's email address
+                  type: string
+                emailVerified:
+                  description: >-
+                    A boolean flag indicating whether the user has verified
+                    their email address in your system.
+                  type: boolean
+            examples:
+              TestUser:
+                summary: A JWT Example
+                value:
+                  email: test-user@bonbon.tech
+                  emailVerified: true
+      responses:
+        '200':
+          description: A signed & encrypted JWT you can pass to bonbontag()
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                Success:
+                  summary: A successful jwt response
+                  value:
+                    message: >-
+                      eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxNDA1MDUzNiwiaWF0IjoxNzE0MDUwNTM2fQ.lfhqUGBexVpL1HABA34lhwK35UvXfPbUcN6f_xWDK1s
+        '500':
+          description: A JSON object with an error message.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Success:
+                  summary: A error JWT response
+                  value:
+                    message: There was an error generating your JWT. Please try again.
 components: {}
